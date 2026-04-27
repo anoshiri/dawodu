@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Filament\Resources\Embassies\Tables;
+
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
+use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TrashedFilter;
+use Filament\Tables\Table;
+
+class EmbassiesTable
+{
+    public static function configure(Table $table): Table
+    {
+        return $table
+            ->columns([
+                TextColumn::make('title')
+                    ->sortable()->searchable(),
+
+                TextColumn::make('country')
+                    ->sortable()->searchable(),
+
+                TextColumn::make('state')
+                    ->sortable()->searchable(),
+                
+                IconColumn::make('status')->boolean(),
+            ])
+            ->filters([
+                TrashedFilter::make(),
+                SelectFilter::make('status')
+                    ->options([
+                        '0' => 'Not Published',
+                        '1' => 'Published'
+                    ])
+                    ->attribute('status'),
+            ])
+            ->recordActions([
+                ViewAction::make(),
+                EditAction::make(),
+            ])
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
+                ]),
+            ]);
+    }
+}

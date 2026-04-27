@@ -1,0 +1,62 @@
+<?php
+
+namespace App\Filament\Resources\GovernmentOfficials\Tables;
+
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
+use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TrashedFilter;
+use Filament\Tables\Table;
+
+class GovernmentOfficialsTable
+{
+    public static function configure(Table $table): Table
+    {
+        return $table
+            ->columns([
+                ImageColumn::make('image')->disk('local')->circular(),
+                TextColumn::make('political_party')
+                    ->sortable()->searchable(),
+                TextColumn::make('first_name')
+                    ->sortable()->searchable(),
+
+                TextColumn::make('last_name')
+                    ->sortable()->searchable(),
+
+                TextColumn::make('xtype')
+                    ->label('Type')
+                    ->enum(config('dawodu.type_of_government_official'))
+                    ->sortable()->searchable(),
+
+                TextColumn::make('email')
+                    ->sortable()->searchable(),
+                    
+
+                IconColumn::make('status')->boolean(),
+
+                TextColumn::make('created_at')
+                    ->dateTime(config('dawodu.dateFormat'). ' '. config('dawodu.timeFormat'))
+                    ->sortable()->searchable(),
+            ])
+            ->filters([
+                TrashedFilter::make(),
+            ])
+            ->recordActions([
+                ViewAction::make(),
+                EditAction::make(),
+            ])
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
+                ]),
+            ]);
+    }
+}
