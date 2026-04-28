@@ -3,12 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[Fillable(['state_id', 'title', 'status'])]
-class FederalConstituency extends Model
-{
-    use HasFactory, SoftDeletes;
-}
+class FederalConstituency extends BaseModel {}

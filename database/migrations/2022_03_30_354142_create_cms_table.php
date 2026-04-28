@@ -20,6 +20,7 @@ class CreateCmsTable extends Migration
             $table->longText('content');
             $table->string('image')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

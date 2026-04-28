@@ -3,16 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[Fillable(['title', 'url', 'blog', 'user_id', 'sort', 'tags', 'image', 'status'])]
-class GeneralLink extends Model
+class GeneralLink extends BaseModel
 {
-    use HasFactory, SoftDeletes;
-
     protected function casts(): array
     {
         return [

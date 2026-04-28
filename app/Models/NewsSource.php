@@ -3,16 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[Fillable(['title', 'url', 'blog', 'sort', 'xtype', 'tags', 'image', 'user_id', 'status'])]
-class NewsSource extends Model
+class NewsSource extends BaseModel
 {
-    use HasFactory, SoftDeletes;
-
     protected function casts(): array
     {
         return [

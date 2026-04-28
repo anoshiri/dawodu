@@ -3,16 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[Fillable(['title', 'description', 'language', 'tags', 'total_time', 'number_of_test', 'total_score', 'sort', 'status'])]
-class LanguageQuiz extends Model
+class LanguageQuiz extends BaseModel
 {
-    use HasFactory, SoftDeletes;
-
     protected function casts(): array
     {
         return [

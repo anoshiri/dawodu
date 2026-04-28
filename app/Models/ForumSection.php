@@ -3,17 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[Fillable(['title', 'forum_section_id', 'user_id', 'sort', 'status'])]
-class ForumSection extends Model
+class ForumSection extends BaseModel
 {
-    use HasFactory, SoftDeletes;
-
     protected function casts(): array
     {
         return [

@@ -3,10 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Model;
 
 #[Fillable(['option', 'value'])]
-class Option extends Model
+class Option extends BaseModel
 {
     protected $primaryKey = 'option';
 

@@ -4,16 +4,13 @@ namespace App\Models;
 
 use App\Enums\AdvertType;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 #[Fillable(['title', 'owner', 'url', 'blog', 'xtype', 'user_id', 'sort', 'tags', 'image', 'status'])]
-class Advert extends Model
+class Advert extends BaseModel
 {
-    use HasFactory, SoftDeletes;
-
     protected function casts(): array
     {
         return [
@@ -26,5 +23,22 @@ class Advert extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    protected function url(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value, $attributes) => Str::replace('public/', '/storage/', $this->image),
+        );
+    }
+
+    public function scopeIsTopBanner($query)
+    {
+        return $query->where('xtype', 1);
+    }
+
+    public function scopeIsSideButton($query)
+    {
+        return $query->where('xtype', 2);
     }
 }

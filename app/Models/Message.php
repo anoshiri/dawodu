@@ -3,9 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Model;
 
 #[Fillable(['title', 'slug', 'content', 'image'])]
-class Message extends Model
-{
-}
+class Message extends BaseModel {}

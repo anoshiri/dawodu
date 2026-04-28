@@ -20,6 +20,7 @@ class CreateMessagesTable extends Migration
             $table->longText('content');
             $table->longText('image')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

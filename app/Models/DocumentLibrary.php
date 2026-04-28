@@ -3,16 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[Fillable(['title', 'source', 'publication_date', 'content', 'user_id', 'sort', 'sites', 'tags', 'original_file_name', 'documents', 'status'])]
-class DocumentLibrary extends Model
+class DocumentLibrary extends BaseModel
 {
-    use HasFactory, SoftDeletes;
-
     protected function casts(): array
     {
         return [

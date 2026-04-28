@@ -5,8 +5,11 @@ namespace App\Filament\Resources\Cms\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables;
+use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
 class CmsTable
@@ -29,7 +32,7 @@ class CmsTable
                     ->searchable(),
             ])
             ->filters([
-                //
+                TrashedFilter::make(),
             ])
             ->recordActions([
                 ViewAction::make(),
@@ -38,6 +41,8 @@ class CmsTable
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
                 ]),
             ]);
     }
