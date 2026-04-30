@@ -14,15 +14,15 @@
 
 			<div class="row">
 				<div class="col-md-6 col-lg-8">
-					@if ($cms->image_url)
+					@if ($cms?->image_url)
 						<div class="space-40"></div>
 						<img src="{{ $cms->image_url }}" alt="image">
 					@endif
 
 					<div class="space-20"></div>
-					
+
 					<div class="mb-5">
-						{!! $cms->content !!}
+						{!! $cms?->content !!}
 					</div>
 				</div>
 				

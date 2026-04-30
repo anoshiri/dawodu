@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 #[Fillable(['title', 'publication_date', 'blog', 'user_id', 'sites', 'sort', 'tags', 'image', 'status'])]
 class Gallery extends BaseModel
@@ -27,5 +29,12 @@ class Gallery extends BaseModel
     public function images(): HasMany
     {
         return $this->hasMany(GalleryImage::class);
+    }
+
+    public function url(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => '/photo-albums/'.Str::slug($attributes['title']).'-'.$attributes['id']
+        );
     }
 }

@@ -31,17 +31,16 @@ class GovernmentOfficialsTable
 
                 TextColumn::make('xtype')
                     ->label('Type')
-                    ->enum(config('dawodu.type_of_government_official'))
+                    ->formatStateUsing(fn ($state) => $state?->label())
                     ->sortable()->searchable(),
 
                 TextColumn::make('email')
                     ->sortable()->searchable(),
-                    
 
                 IconColumn::make('status')->boolean(),
 
                 TextColumn::make('created_at')
-                    ->dateTime(config('dawodu.dateFormat'). ' '. config('dawodu.timeFormat'))
+                    ->dateTime(config('dawodu.dateFormat').' '.config('dawodu.timeFormat'))
                     ->sortable()->searchable(),
             ])
             ->filters([

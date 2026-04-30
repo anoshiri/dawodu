@@ -132,9 +132,9 @@
 	<!--::::: CONTACT FORM AREA END :::::::-->
 
 	@push('scripts')
-		{!! htmlScriptTagJsApi([
+		{{-- {!! htmlScriptTagJsApi([
 			'callback_then' => 'callbackThen',
 			'callback_catch' => 'callbackCatch',
-		]) !!}
+		]) !!} --}}
 	@endpush
 </x-app>

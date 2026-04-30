@@ -16,12 +16,12 @@ class Constitution extends BaseModel
         ];
     }
 
-    public function parent(): BelongsTo
+    public function section(): BelongsTo
     {
         return $this->belongsTo(Constitution::class, 'constitution_id');
     }
 
-    public function children(): HasMany
+    public function subsections(): HasMany
     {
         return $this->hasMany(Constitution::class, 'constitution_id');
     }

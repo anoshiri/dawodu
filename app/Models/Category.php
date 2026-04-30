@@ -46,9 +46,11 @@ class Category extends BaseModel
      * @param  string  $value
      * @return void
      */
-    public function setUserIdAttribute($value)
+    public function userId(): Attribute
     {
-        $this->attributes['user_id'] = Auth::check() ? Auth::user()->id : null;
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => Auth::check() ? Auth::user()->id : null
+        );
     }
 
     /**
@@ -59,7 +61,7 @@ class Category extends BaseModel
     protected function url(): Attribute
     {
         return Attribute::make(
-            get: fn ($value, $attributes) => '/category/'.Str::slug($attributes['title']).'-'.$attributes['id'],
+            get: fn (mixed $value, array $attributes) => '/category/'.Str::slug($attributes['title']).'-'.$attributes['id'],
         );
     }
 }

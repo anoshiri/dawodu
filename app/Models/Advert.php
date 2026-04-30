@@ -34,11 +34,11 @@ class Advert extends BaseModel
 
     public function scopeIsTopBanner($query)
     {
-        return $query->where('xtype', 1);
+        return $query->where('xtype', AdvertType::TopBanner);
     }
 
     public function scopeIsSideButton($query)
     {
-        return $query->where('xtype', 2);
+        return $query->where('xtype', AdvertType::SideButton);
     }
 }

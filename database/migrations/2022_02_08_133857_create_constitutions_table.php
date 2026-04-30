@@ -20,9 +20,7 @@ class CreateConstitutionsTable extends Migration
             $table->longText('content')->nullable();
             
             $table->foreignId('constitution_id')
-                ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('cascade')->nullable();
+                ->nullable();
             
             $table->foreignId('user_id')
                 ->constrained()

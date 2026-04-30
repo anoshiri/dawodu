@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\NigerianState;
 use App\Models\GovernmentOfficial;
 use Illuminate\Support\Facades\DB;
 
@@ -65,7 +66,7 @@ class StateGovernorController extends Controller
             ->isActive()
             ->paginate(10);
 
-        $title = 'Governors of '.config('dawodu.states')[getIdFromSlug($constituency)].' State.';
+        $title = 'Governors of '.NigerianState::from(getIdFromSlug($constituency))->label().' State.';
 
         return view('governors', compact('officials', 'title'));
     }

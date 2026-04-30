@@ -59,7 +59,7 @@ class ArticleController extends Controller
                 ->orderBy('subject')
                 ->paginate(15),
 
-            'category' => Category::find(getIdFromSlug($slug)),
+            'category' => Category::find(getIdFromSlug($slug, 'last')),
         ]);
     }
 

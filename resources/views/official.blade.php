@@ -6,8 +6,8 @@
 				<div class="col-12">
 					<div class="bridcrumb">	
                         <a href="/">Home</a> / 
-                        @if ($official->xtype == 1) <a href="/state-governors/{{ Str::slug(config('dawodu.states')[$official->state_id].' '.$official->state_id) }}"> {{ config('dawodu.states')[$official->state_id] }}</a> / @endif
-                        {{ config('dawodu.type_of_government_official')[$official->xtype] }}
+                        @if ($official->xtype === App\Enums\GovernmentOfficialType::StateGovernor) <a href="/state-governors/{{ Str::slug($official->state_id->label().' '.$official->state_id->value) }}"> {{ $official->state_id->label() }}</a> / @endif
+                        {{ $official->xtype->label() }}
                         
                     </div>
 				</div>

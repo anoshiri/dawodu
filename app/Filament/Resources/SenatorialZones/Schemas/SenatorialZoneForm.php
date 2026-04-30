@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\SenatorialZones\Schemas;
 
+use App\Enums\NigerianState;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -16,7 +17,7 @@ class SenatorialZoneForm
             ->components([
                 Select::make('state_id')
                     ->label('State')
-                    ->options(config('dawodu.states'))
+                    ->options(NigerianState::options())
                     ->required()
                     ->reactive(),
 

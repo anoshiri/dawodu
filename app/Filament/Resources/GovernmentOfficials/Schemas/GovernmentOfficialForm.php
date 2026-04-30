@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\GovernmentOfficials\Schemas;
 
+use App\Enums\GovernmentOfficialType;
+use App\Enums\NigerianState;
 use App\Models\FederalConstituency;
 use App\Models\SenatorialZone;
 use Filament\Forms\Components\DatePicker;
@@ -10,6 +12,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
@@ -40,30 +44,28 @@ class GovernmentOfficialForm
 
                 Select::make('xtype')
                     ->label('Type of Official')
-                    ->options(config('dawodu.type_of_government_official'))
-                    ->reactive()
-                    ->afterStateUpdated(function(callable $set){
+                    ->options(GovernmentOfficialType::options())
+                    ->live()
+                    ->afterStateUpdated(function (Set $set) {
                         $set('constituency_id', null);
                     }),
 
                 Select::make('state_id')
                     ->label('State')
-                    ->options(config('dawodu.states'))
+                    ->options(NigerianState::options())
                     ->required()
-                    ->reactive(),
+                    ->live(),
 
                 Select::make('constituency_id')
                     ->label('Constituency/Senatorial Zone')
-                    ->options(function(callable $get) {
-                        if ($get('xtype') == 3)  {
+                    ->options(function (Get $get) {
+                        if ($get('xtype') == GovernmentOfficialType::FederalRepresentative->value) {
                             return FederalConstituency::where('state_id', $get('state_id'))->pluck('title', 'id');
                         }
 
                         return SenatorialZone::where('state_id', $get('state_id'))->pluck('title', 'id');
                     })
-                    ->disabled(function(callable $get) {
-                        return $get('xtype') == 1;
-                    }),
+                    ->disabled(fn (Get $get) => $get('xtype') == GovernmentOfficialType::StateGovernor->value),
 
                 TextInput::make('position'),
 
@@ -109,13 +111,14 @@ class GovernmentOfficialForm
 
                 TextInput::make('url')
                     ->maxLength(255),
-                
+
                 FileUpload::make('image')
                     ->image()
                     ->disk('local')
                     ->directory('public/government_officials')
                     ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                         $date = time().'-';
+
                         return (string) Str::of($file->getClientOriginalName())->prepend($date);
                     }),
 

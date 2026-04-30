@@ -32,8 +32,8 @@
 							<div class="col-md-4 col-sm-12">
 								<select class="form-control mb-1" id="states" name="state" placeholder="Select state">
 									<option value="">-- select state--</option>
-									@foreach (config('dawodu.states') as $key => $state)
-										<option value="/state-governors/{{ Str::slug($state.' '.$key) }}">{{ $state }}</option>
+									@foreach (App\Enums\NigerianState::cases() as $case)
+										<option value="/state-governors/{{ Str::slug($case->label().' '.$case->value) }}">{{ $case->label() }}</option>
 									@endforeach
 								</select>
 							</div>
@@ -69,7 +69,7 @@
 							@foreach($officials as $official)
 								<tr>
 									<td><a href="{{ $official->local_url }}">{{ $official->full_name }}</a></td>
-									<td>{{ config('dawodu.states')[$official->state_id] }}</td>
+									<td>{{ $official->state_id->label() }}</td>
 									<td>{{ makeDate($official->tenure_start) }}</td>
 									<td>{{ makeDate($official->tenure_end) }}</td>
 									<td>{{ $official->political_party }}</td>

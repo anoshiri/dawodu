@@ -21,7 +21,7 @@ class SenatorialZonesTable
             ->columns([
                 TextColumn::make('state_id')
                     ->label('State')
-                    ->enum(config('dawodu.states'))
+                    ->formatStateUsing(fn ($state) => $state?->label())
                     ->sortable()->searchable(),
 
                 TextColumn::make('title')
@@ -31,7 +31,7 @@ class SenatorialZonesTable
                 IconColumn::make('status')->boolean(),
 
                 TextColumn::make('created_at')
-                    ->dateTime(config('dawodu.dateFormat'). ' '. config('dawodu.timeFormat'))
+                    ->dateTime(config('dawodu.dateFormat').' '.config('dawodu.timeFormat'))
                     ->sortable()->searchable(),
             ])
             ->filters([

@@ -30,7 +30,7 @@ class SiteLinksTable
 
                 TextColumn::make('xtype')
                     ->label('Type')
-                    ->enum(config('dawodu.types_of_site_links'))
+                    ->formatStateUsing(fn ($state) => $state?->label())
                     ->sortable()->searchable(),
 
                 TextColumn::make('tags')
@@ -40,7 +40,7 @@ class SiteLinksTable
                 IconColumn::make('status')->boolean(),
 
                 TextColumn::make('created_at')
-                    ->dateTime(config('dawodu.dateFormat'). ' '. config('dawodu.timeFormat'))->sortable()
+                    ->dateTime(config('dawodu.dateFormat').' '.config('dawodu.timeFormat'))->sortable(),
             ])
             ->filters([
                 TrashedFilter::make(),

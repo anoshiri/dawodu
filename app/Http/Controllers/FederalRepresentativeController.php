@@ -69,23 +69,25 @@ class FederalRepresentativeController extends Controller
             ->paginate(10);
 
         $constituencies = $this->getConstituencies();
-        $title = 'Members representing '.FederalConstituency::whereId(getIdFromSlug($constituency))->first()->title.' federal constituency.';
+        $title = 'Members representing '.Str::title(str_replace('-', ' ', $constituency)).' federal constituency.';
 
         return view('representative', compact('officials', 'constituencies', 'title'));
     }
 
     private function getConstituencies()
     {
-        $items = FederalConstituency::select('id', 'state_id', 'title')->get();
+        $items = FederalConstituency::select('state_id', 'title')->get();
         $constituencies = [];
 
         foreach ($items as $item) {
-            if (! isset($constituencies[$item->state_id])) {
-                $constituencies[$item->state_id] = [];
+            $stateId = $item->state_id->value;
+
+            if (! isset($constituencies[$stateId])) {
+                $constituencies[$stateId] = [];
             }
 
             $url = '/federal-representatives/'.Str::slug($item->title.' '.$item->id);
-            array_push($constituencies[$item->state_id], ['url' => $url, 'title' => $item->title]);
+            array_push($constituencies[$stateId], ['url' => $url, 'title' => $item->title]);
         }
 
         return $constituencies;

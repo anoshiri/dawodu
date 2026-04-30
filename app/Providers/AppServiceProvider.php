@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Interfaces\DataRepositoryInterface;
+use App\Repositories\ArticleRepository;
 use App\Settings\GeneralSettings;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
@@ -17,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(DataRepositoryInterface::class, ArticleRepository::class);
     }
 
     /**

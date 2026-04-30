@@ -16,8 +16,14 @@ class TabbedRelated extends Component
      *
      * @return void
      */
-    public function __construct(Article $article)
+    public function __construct(?Article $article = null)
     {
+        if (! $article) {
+            $this->articles = collect();
+
+            return;
+        }
+
         $related = $article->related;
 
         if (is_array($related) && count($related) > 0) {

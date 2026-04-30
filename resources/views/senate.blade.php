@@ -31,8 +31,8 @@
 								<label for="states">Choose a state:</label>
 								<select class="form-control" id="states" name="states" placeholder="Select state">
 									<option value="">-- select state--</option>
-									@foreach (config('dawodu.states') as $key => $state)
-										<option value="{{ $key }}">{{ $state }}</option>
+									@foreach (App\Enums\NigerianState::cases() as $case)
+										<option value="{{ $case->value }}">{{ $case->label() }}</option>
 									@endforeach
 								</select>
 							</div>
@@ -129,6 +129,7 @@
 				//display correct values
 				$('#constituency').append('<option value="">--select zone--</option>');
 				$(statesObject[selectedState]).each(function(index){
+					console.log(this);
 					$('#constituency').append('<option value="' + this.url + '">' + this.title + '</option>');
 				});
 			});

@@ -56,7 +56,7 @@ Route::get('/events/search/{search}', [EventController::class, 'search']);
 
 // government sites
 Route::get('/political-parties', function () {
-    $parties = PoliticalParty::orderBy('sort')->isActive()->get();
+    $parties = PoliticalParty::orderBy('sort', 'ASC')->isActive()->get();
 
     return view('political_parties', compact('parties'));
 });
@@ -121,7 +121,7 @@ Route::get('/nigerian-embassies/{country?}', [EmbassyController::class, 'index']
 Route::get('/news-sources', function () {
     $sources = [];
     foreach (config('dawodu.source_type') as $key => $source) {
-        $sources[$key] = NewsSource::where('xtype', $key)->orderBy('title')->isActive()->get();
+        $sources[$key] = NewsSource::where('xtype', $key)->orderBy('title', 'ASC')->isActive()->get();
     }
 
     return view('news_sources', compact('sources'));

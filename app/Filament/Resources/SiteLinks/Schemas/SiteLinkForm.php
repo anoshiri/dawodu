@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\SiteLinks\Schemas;
 
+use App\Enums\SiteLinkType;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -22,7 +23,7 @@ class SiteLinkForm
                     ->label('Name of Person/Political Party/ Government Agency/Publication')
                     ->required()
                     ->maxLength(255),
-                
+
                 TextInput::make('short')
                     ->label('Short Form/Nickname/Acronym')
                     ->maxLength(255),
@@ -35,8 +36,8 @@ class SiteLinkForm
 
                 Select::make('xtype')
                     ->label('Type of site link')
-                    ->options(config('dawodu.types_of_site_links')),
-            
+                    ->options(SiteLinkType::options()),
+
                 TextInput::make('twitter')
                     ->maxLength(255),
 
@@ -65,17 +66,18 @@ class SiteLinkForm
                     ->minValue(1)
                     ->maxValue(127)
                     ->helperText('Optional - To Override default alphabetical sort order'),
-                
+
                 TagsInput::make('tags')
                     ->label('SEO Tags')
                     ->helperText('Add key words to help search engine indexing. Press the [ Enter ] key after each keyword or phrase'),
-                
+
                 FileUpload::make('image')
                     ->image()
                     ->disk('local')
                     ->directory('public/site_links')
                     ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                         $date = time().'-';
+
                         return (string) Str::of($file->getClientOriginalName())->prepend($date);
                     })
                     ->helperText('Upload an image or logo as appropriate.'),

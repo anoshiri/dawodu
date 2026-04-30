@@ -27,12 +27,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach (config('dawodu.states') as $key => $state)
+                        @foreach (App\Enums\NigerianState::cases() as $case)
                             <tr>
-                                <td>{{ $state }}</td>
-                                <td><a href="/state-governors/{{ Str::slug($state).'-'.$key }}">10 View</a></td>
-                                <td><a href="/federal-senators/{{ Str::slug($state).'-'.$key }}">17 View</a></td>
-                                <td><a href="/federal-representatives/{{ Str::slug($state).'-'.$key }}">90 view</a></td>
+                                <td>{{ $case->label() }}</td>
+                                <td><a href="/state-governors/{{ Str::slug($case->label()).'-'.$case->value }}">10 View</a></td>
+                                <td><a href="/federal-senators/{{ Str::slug($case->label()).'-'.$case->value }}">17 View</a></td>
+                                <td><a href="/federal-representatives/{{ Str::slug($case->label()).'-'.$case->value }}">90 view</a></td>
                             </tr>
                         @endforeach
                         </tbody>

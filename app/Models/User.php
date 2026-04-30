@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 
@@ -45,8 +46,39 @@ class User extends Authenticatable
             ->implode('');
     }
 
-    public function role() : BelongsTo
+    public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
+
+    /**
+     * Define all relationships with the user
+     */
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
+
+    protected static function booted()
+    {
+        static::updated(function ($user) {
+            // send notification email.
+            $param = $user;
+
+            // additional parameters
+            $param->template = '';
+
+            // Mail::to($param->email)->send(new SentNotification($param));
+        });
     }
 }

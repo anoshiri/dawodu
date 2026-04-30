@@ -39,8 +39,8 @@ class FederalSenatorController extends Controller
     {
         // get constituency
         $officials = GovernmentOfficial::orderBy('tenure_end', 'desc')
-            ->orderBy('first_name')
-            ->orderBy('last_name')
+            ->orderBy('first_name', 'asc')
+            ->orderBy('last_name', 'asc')
             ->where('political_party', $parameter)
             ->isSenator()
             ->isActive()
@@ -61,8 +61,8 @@ class FederalSenatorController extends Controller
     {
         // get constituency
         $officials = GovernmentOfficial::orderBy('tenure_end', 'desc')
-            ->orderBy('first_name')
-            ->orderBy('last_name')
+            ->orderBy('first_name', 'asc')
+            ->orderBy('last_name', 'asc')
             ->when($constituency, function ($query) use ($constituency) {
                 return $query->where('constituency_id', getIdFromSlug($constituency));
             })
@@ -71,23 +71,26 @@ class FederalSenatorController extends Controller
             ->paginate(10);
 
         $constituencies = $this->getConstituencies();
-        $title = 'Members representing '.SenatorialZone::whereId(getIdFromSlug($constituency))->first()->title.' senatorial zone.';
+
+        $title = 'Members representing '.Str::title(str_replace('-', ' ', $constituency)).' senatorial zone.';
 
         return view('senate', compact('officials', 'constituencies', 'title'));
     }
 
     private function getConstituencies()
     {
-        $items = SenatorialZone::select('id', 'state_id', 'title')->get();
+        $items = SenatorialZone::select('state_id', 'title')->get();
         $constituencies = [];
 
         foreach ($items as $item) {
-            if (! isset($constituencies[$item->state_id])) {
-                $constituencies[$item->state_id] = [];
+            $stateId = $item->state_id->value;
+
+            if (! isset($constituencies[$stateId])) {
+                $constituencies[$stateId] = [];
             }
 
             $url = '/federal-senators/'.Str::slug($item->title.' '.$item->id);
-            array_push($constituencies[$item->state_id], ['url' => $url, 'title' => $item->title]);
+            array_push($constituencies[$stateId], ['url' => $url, 'title' => $item->title]);
         }
 
         return $constituencies;
