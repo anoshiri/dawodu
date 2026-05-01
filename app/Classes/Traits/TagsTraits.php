@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Classes\Traits;
+use Illuminate\Database\Eloquent\Builder;
 
 trait TagsTraits
 {
     /**
      * Check which tags are available.
      *
-     * @return bool
+     * @return void
      */
-    public function scopeIsTrending($query)
+    public function scopeIsTrending(Builder $query): void
     {
         $query->where('sections', 'like', '%"trending"%');
     }
@@ -17,9 +18,9 @@ trait TagsTraits
     /**
      * Check which sections are available.
      *
-     * @return bool
+     * @return void
      */
-    public function scopeIsPopular($query)
+    public function scopeIsPopular(Builder $query): void
     {
         $query->where('sections', 'like', '%"popular"%');
     }
@@ -27,9 +28,9 @@ trait TagsTraits
     /**
      * Check which sections are available.
      *
-     * @return bool
+     * @return void
      */
-    public function scopeIsFeatured($query)
+    public function scopeIsFeatured(Builder $query): void
     {
         $query->where('sections', 'like', '%"featured"%');
     }
@@ -37,9 +38,9 @@ trait TagsTraits
     /**
      * Check which sections are available.
      *
-     * @return bool
+     * @return void
      */
-    public function scopeIsFlash($query)
+    public function scopeIsFlash(Builder $query): void
     {
         $query->where('sections', 'like', '%"flash"%');
     }
@@ -47,9 +48,9 @@ trait TagsTraits
     /**
      * Check which tags are available.
      *
-     * @return bool
+     * @return void
      */
-    public function scopeIsMostShared($query)
+    public function scopeIsMostShared(Builder $query): void 
     {
         $query->where('sections', 'like', '%"most-shared"%');
     }
@@ -57,9 +58,9 @@ trait TagsTraits
     /**
      * Check which tags are available.
      *
-     * @return bool
+     * @return void
      */
-    public function scopeIsGalleryArticle($query)
+    public function scopeIsGalleryArticle(Builder $query): void
     {
         $query->where('sections', 'like', '%"gallery-article"%');
     }

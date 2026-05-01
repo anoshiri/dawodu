@@ -10,6 +10,8 @@ use Illuminate\Support\Str;
 #[Fillable(['title', 'description', 'language', 'tags', 'total_time', 'number_of_test', 'total_score', 'sort', 'status'])]
 class LanguageQuiz extends BaseModel
 {
+    protected $appends = ['url', 'average_score'];
+
     protected function casts(): array
     {
         return [

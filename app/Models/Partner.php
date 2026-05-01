@@ -10,6 +10,8 @@ use Illuminate\Support\Str;
 #[Fillable(['title', 'url', 'email', 'phone', 'twitter', 'facebook', 'instagram', 'tiktok', 'linkedin', 'whatsapp', 'blog', 'user_id', 'sort', 'tags', 'image', 'status'])]
 class Partner extends BaseModel
 {
+    protected $appends = ['local_url'];
+
     protected function casts(): array
     {
         return [

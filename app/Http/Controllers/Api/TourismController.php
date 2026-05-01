@@ -50,14 +50,15 @@ class TourismController extends Controller
         // get the title
         $sites = Tourism::where('title', 'like', '%'.$request->title.'%')
             ->orWhere('title', 'sounds like', $request->title)
-            ->orderBy('sort')
-            ->orderBy('title')
-            ->isActive()->paginate(10);
+            ->orderBy('sort', 'asc')
+            ->orderBy('title', 'asc')
+            ->isActive()
+            ->paginate(10);
 
         return response()->json([
             'data' => [
                 'sites' => $sites,
-                'others' => $this->getPreviousNext($site),
+                'others' => [],
             ],
         ]);
     }

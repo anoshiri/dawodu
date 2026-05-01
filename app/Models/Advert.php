@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 #[Fillable(['title', 'owner', 'url', 'blog', 'xtype', 'user_id', 'sort', 'tags', 'image', 'status'])]
 class Advert extends BaseModel
 {
+    protected $appends = ['url', 'image_url'];
     protected function casts(): array
     {
         return [

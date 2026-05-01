@@ -10,6 +10,8 @@ use Illuminate\Support\Str;
 #[Fillable(['word', 'meaning', 'language', 'user_id', 'sort', 'image', 'status'])]
 class Language extends BaseModel
 {
+    protected $appends = ['url'];
+
     protected function casts(): array
     {
         return [

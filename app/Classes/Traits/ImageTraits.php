@@ -2,6 +2,7 @@
 
 namespace App\Classes\Traits;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Str;
 
 trait ImageTraits
@@ -9,14 +10,12 @@ trait ImageTraits
     /**
      * Check if model is active.
      *
-     * @return bool
+     * @return Attribute
      */
-    public function getImageUrlAttribute()
+    protected function imageUrl() : Attribute
     {
-        if (empty($this->image)) {
-            return null;
-        }
-
-        return Str::replace('public/', '/storage/', $this->image);
+        return Attribute::make(
+            get: fn () => empty($this->image) ? '' : Str::replace('public/', '/storage/', $this->image)
+        );
     }
 }

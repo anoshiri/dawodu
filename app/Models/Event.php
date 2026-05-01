@@ -10,6 +10,8 @@ use Illuminate\Support\Str;
 #[Fillable(['subject', 'venue', 'start_date', 'start_time', 'end_date', 'end_time', 'contact_person', 'email', 'phone', 'address', 'locality', 'city', 'code', 'state', 'country', 'twitter', 'facebook', 'instagram', 'tiktok', 'linkedin', 'whatsapp', 'blog', 'user_id', 'sort', 'tags', 'image', 'documents', 'status'])]
 class Event extends BaseModel
 {
+    protected $appends = ['start_date_time', 'end_date_time', 'start_and_end', 'url', 'doc_url'];
+
     protected function casts(): array
     {
         return [

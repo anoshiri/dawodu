@@ -73,7 +73,7 @@ class LanguageController extends Controller
         return response()->json([
             'data' => [
                 'word' => $word,
-                'words' => Language::where('word', '<>', $word->word)->inRandomOrder()->isActive()->limit(20)->get(),
+                'words' => is_null($word) ? [] : Language::where('word', '<>', $word->word)->inRandomOrder()->isActive()->limit(20)->get(),
                 'others' => $this->getPreviousNext($word),
             ],
         ]);

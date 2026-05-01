@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use Newsletter;
+use App\Models\Newsletter;
 
 class NewsletterForm extends Component
 {

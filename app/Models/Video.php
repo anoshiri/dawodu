@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
@@ -10,6 +12,8 @@ use Illuminate\Support\Str;
 #[Fillable(['title', 'publication_date', 'length', 'url', 'blog', 'featured', 'user_id', 'sites', 'sort', 'tags', 'image', 'status'])]
 class Video extends BaseModel
 {
+    protected $appends = ['local_url'];
+
     protected function casts(): array
     {
         return [
@@ -26,9 +30,9 @@ class Video extends BaseModel
         return $this->belongsTo(User::class);
     }
 
-    public function scopeIsFeatured($query)
+    public function scopeIsFeatured(Builder $query): void
     {
-        return $query->whereFeatured(1);
+        $query->where('featured', 1);
     }
 
     /**

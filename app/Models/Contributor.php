@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 #[Fillable(['first_name', 'last_name', 'suffix', 'email', 'phone', 'twitter', 'facebook', 'instagram', 'tiktok', 'linkedin', 'whatsapp', 'comment', 'user_id', 'sort', 'image', 'status'])]
 class Contributor extends BaseModel
 {
+    protected $appends = ['full_name', 'url'];
+
     protected function casts(): array
     {
         return [

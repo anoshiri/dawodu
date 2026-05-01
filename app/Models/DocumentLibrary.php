@@ -10,6 +10,8 @@ use Illuminate\Support\Str;
 #[Fillable(['title', 'source', 'publication_date', 'content', 'user_id', 'sort', 'sites', 'tags', 'original_file_name', 'documents', 'status'])]
 class DocumentLibrary extends BaseModel
 {
+    protected $appends = ['url', 'doc_url'];
+
     protected function casts(): array
     {
         return [

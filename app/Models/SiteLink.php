@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 #[Fillable(['title', 'short', 'url', 'blog', 'xtype', 'twitter', 'facebook', 'instagram', 'tiktok', 'linkedin', 'whatsapp', 'youtube', 'user_id', 'sort', 'tags', 'image', 'status'])]
 class SiteLink extends BaseModel
 {
+    protected $appends = ['image_url'];
+    
     protected function casts(): array
     {
         return [

@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 #[Fillable(['publication_date', 'subject', 'content', 'source', 'video_url', 'category_id', 'contributor_id', 'user_id', 'image', 'sites', 'sections', 'tags', 'related', 'views', 'impressions', 'status'])]
 class Article extends BaseModel
 {
+    protected $appends = ['read_time', 'image_url', 'url', 'by_source', 'abstract'];
+
     protected function casts(): array
     {
         return [
@@ -55,17 +57,6 @@ class Article extends BaseModel
         );
     }
 
-    /**
-     * Assessor for image url
-     *
-     * @return string
-     */
-    protected function imageUrl(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value, $attributes) => Str::replace('public/', '/storage/', $attributes['image']),
-        );
-    }
 
     /**
      * Assessor for image url

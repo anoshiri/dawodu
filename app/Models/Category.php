@@ -12,6 +12,8 @@ use Illuminate\Support\Str;
 #[Fillable(['title', 'sites', 'category_id', 'user_id', 'status'])]
 class Category extends BaseModel
 {
+    protected $appends = ['url'];
+
     protected function casts(): array
     {
         return [

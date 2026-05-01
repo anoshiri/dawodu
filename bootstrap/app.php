@@ -16,6 +16,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->api(append: [
             RouteByApiToken::class,
         ]);
+        $middleware->validateCsrfTokens(except: [
+            'api/*', // Disables CSRF for all routes starting with /api
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

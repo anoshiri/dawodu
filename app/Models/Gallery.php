@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 #[Fillable(['title', 'publication_date', 'blog', 'user_id', 'sites', 'sort', 'tags', 'image', 'status'])]
 class Gallery extends BaseModel
 {
+    protected $appends = ['url', 'image_url'];
+
     protected function casts(): array
     {
         return [
